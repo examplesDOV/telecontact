@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Client;
-use App\ClientStatus;
+use App\ClientTimeout;
 use App\Http\Requests\ClientUpdatePost;
 use Illuminate\Http\Request;
 
@@ -47,7 +47,7 @@ class CallController extends Controller
         $client->update($request->all());
         $client->info->update($request->info);
 
-        (new ClientStatus($client))->apply();        
+        (new ClientTimeout($client))->apply();        
 
         $client->reserve(false);
         

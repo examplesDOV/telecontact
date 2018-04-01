@@ -6,7 +6,7 @@ use App\Client;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class ClientStatus {
+class ClientTimeout {
     
     protected $client;
     protected $statusId;
