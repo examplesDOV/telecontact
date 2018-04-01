@@ -18,7 +18,8 @@ class CallController extends Controller
             return view('call.client', ['client' => $reserve]);    
         }
         
-        
+        // Возможно, стоит обернуть в транзакцию...
+        // DB::beginTransaction();
         $client = $client->getFree();
         
         if (!$client) {
@@ -26,6 +27,7 @@ class CallController extends Controller
         }
         
         $client->reserve(true);
+        // DB::commit();
         
         return view('call.client', [
             'client' => $client
