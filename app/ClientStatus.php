@@ -18,27 +18,18 @@ class ClientStatus {
     
     public function apply() {
         $methodName = 'status'.$this->client->status;
-        if(method_exists($this, $methodName)) {
-            $this->$methodName();
+        if(array_key_exists($this->client->status, config('client.call_timeout'))) {
+            $this->setAutoTimeout();
         }
     }
-    
-    // Статус "Занято"
-    public function status2() {
+  
+    protected function setAutoTimeout() {
+        
         $timeout = config('client.call_timeout.'.$this->client->status);
         $result = $this->carbon->addMinute($timeout);
         $this->client->timeout = $result;
         
-        return $this->client;
-    }
-    
-    // Статус "Нет ответа"
-    public function status3() {
-        $timeout = config('client.call_timeout.'.$this->client->status);
-        $result = $this->carbon->addMinute($timeout);
-        $this->client->timeout = $result;
-        
-        return $this->client;        
+        return $this->client;     
     }
 
 }
