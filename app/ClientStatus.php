@@ -17,14 +17,12 @@ class ClientStatus {
     }
     
     public function apply() {
-        $methodName = 'status'.$this->client->status;
         if(array_key_exists($this->client->status, config('client.call_timeout'))) {
             $this->setAutoTimeout();
         }
     }
   
-    protected function setAutoTimeout() {
-        
+    protected function setAutoTimeout() {        
         $timeout = config('client.call_timeout.'.$this->client->status);
         $result = $this->carbon->addMinute($timeout);
         $this->client->timeout = $result;
